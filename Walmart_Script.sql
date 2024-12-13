@@ -199,3 +199,41 @@ FROM walmart
 GROUP BY day
 ORDER BY avg_rating DESC;
 
+-- -- Yearly revenue and running yearly total calculations
+WITH yearly_revenue AS (
+    SELECT 
+        EXTRACT(YEAR FROM date) AS year, 
+        SUM(revenue) AS total_revenue
+    FROM walmart
+    GROUP BY 1
+)
+SELECT 
+    year, 
+    total_revenue,
+    SUM(total_revenue) OVER (ORDER BY year) AS running_revenue
+FROM yearly_revenue
+ORDER BY year;
+
+-- alternate way by using rows between unbounded preceding and current row
+WITH yearly_revenue AS (
+    SELECT 
+        EXTRACT(YEAR FROM date) AS year, 
+        SUM(revenue) AS total_revenue
+    FROM walmart
+    GROUP BY 1
+)
+SELECT 
+    year, 
+    total_revenue,
+    SUM(total_revenue) OVER (ORDER BY year rows between unbounded preceding and current row) AS running_revenue
+FROM yearly_revenue
+ORDER BY year;
+
+-- Calculating revenue by year and category
+
+    SELECT 
+        EXTRACT(YEAR FROM date) AS year, category,
+        SUM(revenue) AS total_revenue
+    FROM walmart
+    GROUP BY 1,2
+
