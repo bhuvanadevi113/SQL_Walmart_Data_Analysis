@@ -35,4 +35,6 @@ Which of the customer types brings the most revenue?\
 How many unique payment methods does the data have?\
 What is the gender of most of the customers?\
 Which month has the highest revenue?\
-Which day fo the week has the best avg ratings?
+Which day fo the week has the best avg ratings?\
+what is the annual total revenue for each year and also calculate running total?\
+Determine each year's revenue by category. 
